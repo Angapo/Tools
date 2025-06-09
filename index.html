@@ -1,1 +1,91 @@
-hi github
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>QR Code สวยๆ</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    body {
+      font-family: 'Prompt', sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .qrcode-container {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 24px;
+      color: #333;
+    }
+
+    #qrcode {
+      margin-top: 20px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      background-color: #00b894;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #019874;
+    }
+  </style>
+</head>
+<body>
+
+<div class="qrcode-container">
+  <h1>สร้าง QR Code
+  </h1>
+  <input type="text" id="text" placeholder="พิมพ์ข้อความหรือ URL">
+  <button onclick="generateQRCode()">สร้าง QR Code</button>
+  <div id="qrcode"></div>
+</div>
+
+<script>
+  let qr;
+
+  function generateQRCode() {
+    const text = document.getElementById("text").value;
+    const container = document.getElementById("qrcode");
+
+    container.innerHTML = ""; // ล้าง QR เดิมก่อน
+
+    qr = new QRCode(container, {
+      text: text,
+      width: 200,
+      height: 200,
+      colorDark: "#2d3436",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  }
+</script>
+
+</body>
+</html>
