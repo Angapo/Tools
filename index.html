@@ -1,91 +1,100 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <title>QR Code สวยๆ</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QR Code Generator</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
     body {
-      font-family: 'Prompt', sans-serif;
-      background: #f0f4f8;
+      margin: 0;
+      background: linear-gradient(135deg, #dff9fb, #c7ecee);
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      margin: 0;
+      min-height: 100vh;
+      padding: 20px;
     }
 
-    .qrcode-container {
+    .qrcode-box {
       background: white;
-      padding: 30px;
+      padding: 30px 20px;
       border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
       text-align: center;
     }
 
     h1 {
       font-size: 24px;
-      color: #333;
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      background: #00b894;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #019875;
     }
 
     #qrcode {
       margin-top: 20px;
     }
-
-    input[type="text"] {
-      width: 100%;
-      padding: 10px;
-      font-size: 16px;
-      margin-top: 20px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-    }
-
-    button {
-      margin-top: 15px;
-      padding: 10px 20px;
-      font-size: 16px;
-      border: none;
-      background-color: #00b894;
-      color: white;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #019874;
-    }
   </style>
 </head>
 <body>
+  <div class="qrcode-box">
+    <h1>สร้าง QR Code</h1>
+    <input type="text" id="text" placeholder="ใส่ข้อความหรือ URL ที่นี่" />
+    <button onclick="generateQRCode()">สร้าง QR Code</button>
+    <div id="qrcode"></div>
+  </div>
 
-<div class="qrcode-container">
-  <h1>สร้าง QR Code
-  </h1>
-  <input type="text" id="text" placeholder="พิมพ์ข้อความหรือ URL">
-  <button onclick="generateQRCode()">สร้าง QR Code</button>
-  <div id="qrcode"></div>
-</div>
+  <script>
+    function generateQRCode() {
+      const text = document.getElementById("text").value;
+      const qrcodeContainer = document.getElementById("qrcode");
+      qrcodeContainer.innerHTML = ""; // ล้าง QR เดิม
 
-<script>
-  let qr;
+      if (text.trim() === "") {
+        alert("กรุณากรอกข้อความก่อน");
+        return;
+      }
 
-  function generateQRCode() {
-    const text = document.getElementById("text").value;
-    const container = document.getElementById("qrcode");
-
-    container.innerHTML = ""; // ล้าง QR เดิมก่อน
-
-    qr = new QRCode(container, {
-      text: text,
-      width: 200,
-      height: 200,
-      colorDark: "#2d3436",
-      colorLight: "#ffffff",
-      correctLevel: QRCode.CorrectLevel.H
-    });
-  }
-</script>
-
+      new QRCode(qrcodeContainer, {
+        text: text,
+        width: 200,
+        height: 200,
+        colorDark: "#2d3436",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H,
+      });
+    }
+  </script>
 </body>
 </html>
