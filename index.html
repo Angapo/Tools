@@ -2,18 +2,22 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>QR Code Generator</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <style>
     * {
       box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: "Mitr", sans-serif;
     }
 
     body {
       margin: 0;
-      background: linear-gradient(135deg, #dff9fb, #c7ecee);
+      font-family: "Mitr", sans-serif;
+      background: #000;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -21,10 +25,23 @@
       padding: 20px;
     }
 
+    .grid {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,0.1) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.1) 1px, transparent 1px);
+      background-size: 20px 20px;
+      z-index: 0;
+    }
+
     .qrcode-box {
-      background: white;
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(2px);
       padding: 30px 20px;
       border-radius: 20px;
+      border: 5px solid rgba(255, 255, 255, 0.3);
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
       max-width: 400px;
       width: 100%;
@@ -65,21 +82,78 @@
     #qrcode {
       margin-top: 20px;
     }
+
+    .textgs {
+      color: rgba(255, 255, 255, 0.1);
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn-group button {
+      flex: 1;
+    }
+  
+  .main-header {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  text-align: center;
+  padding: 15px 0;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(4px);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  z-index: 10;
+}
+
+.main-header h2 {
+  margin: 0;
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: normal;
+}
+  
+  a{ 
+    color: #fff ;
+    text-decoration: none;
+  }
   </style>
 </head>
 <body>
-  <div class="qrcode-box">
-    <h1>สร้าง QR Code</h1>
-    <input type="text" id="text" placeholder="ใส่ข้อความหรือ URL ที่นี่" />
-    <button onclick="generateQRCode()">สร้าง QR Code</button>
-    <div id="qrcode"></div>
-  </div>
+  <div class="grid"></div>
 
-  <script>
+  <!-- ✅ HEADER -->
+  <header class="main-header">
+    <h2>🌐 QR Code Maker by Angpao</h2>
+    <a href="gy">{home}</a>
+  </header>
+
+  <!-- ✅ QR Code Box -->
+  <div class="qrcode-box">
+    <h1>สร้าง QR Code </h1>
+    <input
+      type="text"
+      id="text"
+      placeholder="ใส่ข้อความหรือ URL ที่นี่"
+      onkeydown="if(event.key==='Enter'){generateQRCode();}"
+    />
+    <div class="btn-group">
+      <button onclick="generateQRCode()">สร้าง QR Code</button>
+      <button onclick="clearQRCode()" style="background:#d63031;">ล้าง</button>
+    </div>
+    <div id="qrcode"></div>
+    <h3 class="textgs">by.Angpao</h3>
+  </div>
+  
+    <script>
     function generateQRCode() {
       const text = document.getElementById("text").value;
       const qrcodeContainer = document.getElementById("qrcode");
-      qrcodeContainer.innerHTML = ""; // ล้าง QR เดิม
+      qrcodeContainer.innerHTML = "";
 
       if (text.trim() === "") {
         alert("กรุณากรอกข้อความก่อน");
@@ -95,6 +169,10 @@
         correctLevel: QRCode.CorrectLevel.H,
       });
     }
-  </script>
-</body>
-</html>
+
+    function clearQRCode() {
+      document.getElementById("text").value = "";
+      document.getElementById("qrcode").innerHTML = "";
+    }
+  </script
+    </html>
