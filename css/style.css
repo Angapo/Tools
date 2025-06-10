@@ -26,7 +26,7 @@
       z-index: 0;
     }
 
-    .qrcode-box {
+    .box {
       background: rgba(255, 255, 255, 0.5);
       backdrop-filter: blur(2px);
       padding: 30px 20px;
